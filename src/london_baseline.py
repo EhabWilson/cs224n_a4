@@ -12,7 +12,12 @@ def main():
 
     # Compute accuracy in the range [0.0, 100.0]
     ### YOUR CODE HERE ###
-    pass
+    eval_corpus_path = "birth_dev.tsv"
+    with open(eval_corpus_path, encoding='utf-8') as f:
+        n_lines = sum(1 for _ in f)
+        predictions = ["London"] * n_lines
+    total, correct = utils.evaluate_places(eval_corpus_path, predictions)
+    accuracy = correct / total
     ### END YOUR CODE ###
 
     return accuracy
