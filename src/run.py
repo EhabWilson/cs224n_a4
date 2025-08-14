@@ -66,8 +66,7 @@ model = None
 if args.variant == 'vanilla':
     # TODO: [part c] Make some model here
     ### YOUR CODE HERE ###
-    model = models.GPT(mconf)
-    model = torch.nn.DataParallel(model).to(device)
+    model = models.GPT(mconf).to(device)
     ### END YOUR CODE ###
 elif args.variant == 'rope':
     # TODO: [part g] Make some other model here
@@ -162,16 +161,15 @@ elif args.function == 'finetune':
         lr_decay=True,
         warmup_tokens=512*20,
         final_tokens=200*len(pretrain_dataset)*block_size,
-        num_workers=4,
+        num_workers=0,
         writer=writer,
+        ckpt_path=args.writing_params_path
     )
     trainer = trainer.Trainer(model, finetune_dataset, None, tconf)
     trainer.train()
-
-    # save checkpoint
-    torch.save(model.state_dict(), args.writing_params_path)
+    trainer.save_checkpoint()
     ### END YOUR CODE ###
-    
+
 elif args.function == 'evaluate':
     assert args.outputs_path is not None
     assert args.reading_params_path is not None

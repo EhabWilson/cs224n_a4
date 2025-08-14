@@ -206,3 +206,5 @@ __marimo__/
 runs
 outputs
 model.bin*
+expt/
+vanilla*
