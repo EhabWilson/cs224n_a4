@@ -104,9 +104,9 @@ class CharCorruptionDataset(Dataset):
         document = self.data[idx]
         
         # randomly truncate
-        truncate_length = random.randint(4, min(int(self.block_size*7/8), len(document)))
-        truncate_start = random.randint(0, len(document)-truncate_length)
-        truncated_document = document[truncate_start:truncate_start+truncate_length]
+        truncate_length = random.randint(4, int(self.block_size*7/8))
+        # truncate_start = random.randint(0, len(document)-truncate_length)
+        truncated_document = document[:truncate_length]
 
         # mask some content
         mask_length = int(random.gauss(truncate_length//4, truncate_length/6))
