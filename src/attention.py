@@ -38,7 +38,9 @@ def precompute_rotary_emb(dim, max_positions):
     rope_cache = None
     # TODO: [part g]
     ### YOUR CODE HERE ###
-    pass
+    t = torch.arange(0, max_positions)[:None]
+    theta = 1 / 10000 ** (- 2 * (torch.arange(1, (dim+1)/2) / dim))[None:]
+    rope_cache = torch.stack([t * torch.cos(theta), t * torch.sin(theta)], dim=-1)
     ### END YOUR CODE ###
     return rope_cache
 
