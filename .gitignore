@@ -208,4 +208,5 @@ outputs
 model.bin*
 expt/
 vanilla*
+rope*
 london_baseline_accuracy.txt
